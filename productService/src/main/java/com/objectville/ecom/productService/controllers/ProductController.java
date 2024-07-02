@@ -1,11 +1,11 @@
 package com.objectville.ecom.productService.controllers;
 
+import com.objectville.ecom.productService.exceptions.ProductNotFoundException;
 import com.objectville.ecom.productService.models.Product;
 import com.objectville.ecom.productService.services.ProductService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,13 +19,18 @@ public class ProductController {
         this.productService = productService;
     }
     @GetMapping("/{id}")
-    public Product getProductById(@PathVariable Long id) {
-
-        return productService.getProductByID(id);
+    public ResponseEntity<Product> getProductById(@PathVariable("id") Long id) throws Exception {
+        Product product = productService.getProductByID(id);
+        return new ResponseEntity<>(product, HttpStatus.OK);
     }
     @GetMapping
     public List<Product> getAllProducts() {
-        return null;
+        return productService.getAllProducts();
+    }
+
+    @PutMapping("/{id}")
+    public Product replaceProduct(@RequestBody Product newProduct, @PathVariable("id") Long id) {
+        return productService.replaceProduct(newProduct, id);
     }
 
     //createUpdate

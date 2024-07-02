@@ -1,15 +1,21 @@
 package com.objectville.ecom.productService.services;
 
-import com.objectville.ecom.productService.FakeStoreProductDto.FakeStoreProductDto;
+import com.objectville.ecom.productService.dtos.FakeStoreProductDto;
+import com.objectville.ecom.productService.exceptions.ProductNotFoundException;
 import com.objectville.ecom.productService.models.Category;
 import com.objectville.ecom.productService.models.Product;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
 @Service
 public class FakeStoreProductService implements ProductService {
+    // to test runtime exception at service layer
+
+
 
     private final RestTemplate restTemplate;
 
@@ -32,19 +38,38 @@ public class FakeStoreProductService implements ProductService {
     }
 
     @Override
-    public Product getProductByID(Long id) {
+    public Product getProductByID(Long id) throws Exception {
+        // Simulating an exception to demonstrate exception handling
+        if (id < 0) {
+            throw new Exception("Invalid product ID");
+        }
+
         FakeStoreProductDto fakeStoreProductDto = restTemplate.getForObject("https://fakestoreapi.com/products/" + id, FakeStoreProductDto.class);
         if (fakeStoreProductDto != null) {
             return convertFakeStoreDtoToProduct(fakeStoreProductDto);
         } else {
-            return null; // or throw an exception, depending on your use case
+            throw new ProductNotFoundException(id, "Product with id "+ id +" not found");
         }
     }
 
+
     @Override
     public List<Product> getAllProducts() {
+        FakeStoreProductDto[] fakeStoreProductDtos = restTemplate.getForObject("https://fakestoreapi.com/products", FakeStoreProductDto[].class);
+        if (fakeStoreProductDtos != null) {
+            List<Product> products = new ArrayList<>();
+            for (FakeStoreProductDto dto : fakeStoreProductDtos) {
+                products.add(convertFakeStoreDtoToProduct(dto));
+            }
+            return products;
+        }
+        return null;
 
-        return null; // or throw an exception, depending on your use case
+         // or throw an exception, depending on your use case
 
+    }
+    public Product replaceProduct(Product newProduct, Long id) {
+        restTemplate.put("https://fakestoreapi.com/products/" + id, newProduct, Product.class);
+        return null;
     }
 }

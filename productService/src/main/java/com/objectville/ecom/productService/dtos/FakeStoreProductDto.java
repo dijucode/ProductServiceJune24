@@ -1,4 +1,4 @@
-package com.objectville.ecom.productService.FakeStoreProductDto;
+package com.objectville.ecom.productService.dtos;
 
 import lombok.Getter;
 import lombok.Setter;
