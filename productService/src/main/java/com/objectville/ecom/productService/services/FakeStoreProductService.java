@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Service
+@Service("fakeStoreProductService")
 public class FakeStoreProductService implements ProductService {
     // to test runtime exception at service layer
 
@@ -71,5 +71,20 @@ public class FakeStoreProductService implements ProductService {
     public Product replaceProduct(Product newProduct, Long id) {
         restTemplate.put("https://fakestoreapi.com/products/" + id, newProduct, Product.class);
         return null;
+    }
+
+    @Override
+    public Product updateProduct(Long id, Product newProduct) {
+        return null;
+    }
+
+    @Override
+    public Product createProduct(Product newProduct) {
+        return null;
+    }
+
+    @Override
+    public void deleteProduct(Long id) {
+
     }
 }

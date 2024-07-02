@@ -3,6 +3,7 @@ package com.objectville.ecom.productService.controllers;
 import com.objectville.ecom.productService.exceptions.ProductNotFoundException;
 import com.objectville.ecom.productService.models.Product;
 import com.objectville.ecom.productService.services.ProductService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +15,7 @@ import java.util.List;
 public class ProductController {
     private final ProductService productService;
 
-    ProductController( ProductService productService) {
+    ProductController(@Qualifier("selfProductService") ProductService productService) {
 
         this.productService = productService;
     }
