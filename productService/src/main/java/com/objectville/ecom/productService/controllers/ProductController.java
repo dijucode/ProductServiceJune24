@@ -2,6 +2,7 @@ package com.objectville.ecom.productService.controllers;
 
 import com.objectville.ecom.productService.exceptions.ProductNotFoundException;
 import com.objectville.ecom.productService.models.Product;
+import com.objectville.ecom.productService.repositories.ProductRepository;
 import com.objectville.ecom.productService.services.ProductService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -13,11 +14,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/products")
 public class ProductController {
-    private final ProductService productService;
+    private  ProductService productService;
+    private final ProductRepository productRepository;
 
-    ProductController(@Qualifier("selfProductService") ProductService productService) {
+    ProductController(@Qualifier("selfProductService") ProductService productService, ProductRepository productRepository) {
 
         this.productService = productService;
+        this.productRepository = productRepository;
     }
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable("id") Long id) throws Exception {
@@ -34,8 +37,12 @@ public class ProductController {
         return productService.replaceProduct(newProduct, id);
     }
 
-    //createUpdate
-    //delete
-    //updateProduct
+
+
+    @PostMapping
+    public Product createProduct(@RequestBody Product newProduct) {
+        // Using the productService to handle creation logic
+        return productService.createProduct(newProduct);
+    }
 
 }

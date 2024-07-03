@@ -17,8 +17,8 @@ import java.sql.Date;
 public class Category extends BaseModel {
 
     private String description;
-    private Date createdDate;
-    private Date updatedDate;
+    private String imageUrl;
+
 
 
 }

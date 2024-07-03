@@ -29,10 +29,10 @@ public class FakeStoreProductService implements ProductService {
         product.setTitle(dto.getTitle());
         product.setPrice(dto.getPrice());
         product.setDescription(dto.getDescription());
-        product.setImageUrl(dto.getImage());
         Category category = new Category();
         category.setId(dto.getId());
         category.setDescription(dto.getDescription());
+        category.setImageUrl(dto.getImage());
         product.setCategory(category);
         return product;
     }
