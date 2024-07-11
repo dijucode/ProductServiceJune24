@@ -1,8 +1,6 @@
 package com.objectville.ecom.productService.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,8 +13,10 @@ public class Product extends BaseModel {
     private String description;
     private double price;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn
     private Category category;
+    private int qty;
 
 }
 

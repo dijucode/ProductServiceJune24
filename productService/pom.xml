@@ -63,12 +63,44 @@
 			<version>8.4.0</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.flywaydb/flyway-core -->
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+			<version>10.15.2</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.flywaydb/flyway-mysql -->
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-mysql</artifactId>
+			<version>10.15.2</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.apache.maven.wrapper/maven-wrapper-distribution -->
+		<dependency>
+			<groupId>org.apache.maven.wrapper</groupId>
+			<artifactId>maven-wrapper-distribution</artifactId>
+			<version>3.3.2</version>
+			<type>pom</type>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.assertj/assertj-core -->
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<version>3.26.0</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test -->
+
+
 
 	</dependencies>
 
 	<build>
 		<plugins>
 			<plugin>
+
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
@@ -82,5 +114,6 @@
 			</plugin>
 		</plugins>
 	</build>
+
 
 </project>

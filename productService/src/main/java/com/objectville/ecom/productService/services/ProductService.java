@@ -13,7 +13,7 @@ public interface ProductService {
 
 
 
-    Product getProductByID(Long id) throws Exception;
+    Product getProductById(Long id) throws Exception;
 
     List<Product> getAllProducts();
 
@@ -24,5 +24,6 @@ public interface ProductService {
     Product createProduct(Product newProduct);
 
     void deleteProduct(Long id);
+
 
 }

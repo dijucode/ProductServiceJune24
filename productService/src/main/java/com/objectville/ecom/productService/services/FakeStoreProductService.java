@@ -38,7 +38,7 @@ public class FakeStoreProductService implements ProductService {
     }
 
     @Override
-    public Product getProductByID(Long id) throws Exception {
+    public Product getProductById(Long id) throws Exception {
         // Simulating an exception to demonstrate exception handling
         if (id < 0) {
             throw new Exception("Invalid product ID");

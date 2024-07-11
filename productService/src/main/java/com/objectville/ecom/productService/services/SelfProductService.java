@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service("selfProductService")
-//@Primary
+@Primary
 public class SelfProductService implements ProductService{
 
     private ProductRepository productRepository;
@@ -25,7 +25,7 @@ public class SelfProductService implements ProductService{
     }
 
     @Override
-    public Product getProductByID(Long id) throws Exception {
+    public Product getProductById(Long id) throws Exception {
 //        Fetch product from database using id
         Optional<Product> optionalProduct = productRepository.findById(id);
         if (optionalProduct.isPresent()){
@@ -57,8 +57,8 @@ public class SelfProductService implements ProductService{
         Category category = newProduct.getCategory();
         if (category.getId()== null){
 //            we need to save the category.
-            Category savedCategory = categoryRepository.save(category);
-            newProduct.setCategory(savedCategory);
+//            Category savedCategory = categoryRepository.save(category);
+//            newProduct.setCategory(savedCategory);
         }
 //        else{//we sd check if the category exists in the db}
         Product savedProduct = productRepository.save(newProduct);
