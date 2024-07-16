@@ -1,5 +1,7 @@
 package com.objectville.ecom.productService.controllers;
 
+import com.objectville.ecom.productService.commons.AuthCommons;
+import com.objectville.ecom.productService.dtos.UserDto;
 import com.objectville.ecom.productService.exceptions.ProductNotFoundException;
 import com.objectville.ecom.productService.models.Product;
 import com.objectville.ecom.productService.repositories.ProductRepository;
@@ -14,16 +16,42 @@ import java.util.List;
 @RestController
 @RequestMapping("/products")
 public class ProductController {
+    private final AuthCommons authCommons;
     private  ProductService productService;
-    private final ProductRepository productRepository;
+    private  ProductRepository productRepository;
 
-    ProductController(@Qualifier("selfProductService") ProductService productService, ProductRepository productRepository) {
+    ProductController(@Qualifier("selfProductService") ProductService productService, ProductRepository productRepository, AuthCommons authCommons) {
 
         this.productService = productService;
         this.productRepository = productRepository;
+        this.authCommons = authCommons;
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable("id") Long id) throws Exception {
+    public ResponseEntity<Product> getProductById(@PathVariable("id") Long id,
+                                                  @RequestHeader("auth") String token) throws Exception {
+
+
+
+
+//        call User Service to validate token
+//
+//        UserDto userDto = authCommons.validateToken(token);
+//        if (userDto == null) {
+//            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+//        }
+
+
+
+//        Role Bases Access Control
+//        for (Roles role : userDto.getRoles()) {
+//            if (role.getName().equals("ADMIN")) {
+//                Product product = productService.getProductById(id);
+//                return new ResponseEntity<>(product, HttpStatus.OK);
+//            }
+//        }
+
+
+
         Product product = productService.getProductById(id);
         return new ResponseEntity<>(product, HttpStatus.OK);
     }

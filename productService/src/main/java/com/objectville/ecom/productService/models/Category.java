@@ -20,8 +20,8 @@ public class Category extends BaseModel {
 
     private String description;
     private String imageUrl;
-//    @OneToMany(mappedBy = "category")
-//    private List<Product> products;
+    @OneToMany(mappedBy = "category")
+    private List<Product> products;
 
 
 

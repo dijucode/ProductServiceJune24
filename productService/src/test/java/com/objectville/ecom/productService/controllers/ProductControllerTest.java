@@ -30,7 +30,7 @@ class ProductControllerTest {
                 .thenReturn(product);
 
 
-        Product actualProduct = productController.getProductById(1L).getBody();
+        Product actualProduct = productController.getProductById(1L, "Product with id 1 not found").getBody();
         assertEquals(product, actualProduct);
 
 
@@ -64,6 +64,6 @@ class ProductControllerTest {
         when(productService.getProductById(1L))
                 .thenThrow(new ProductNotFoundException(1L, "Product with id 1 not found"));
 
-        assertThrows(ProductNotFoundException.class, () -> productController.getProductById(1L));
+        assertThrows(ProductNotFoundException.class, () -> productController.getProductById(1L, "Product with id 1 not found"));
     }
 }

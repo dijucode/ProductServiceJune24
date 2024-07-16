@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    @Override
+
     Optional<Product> findById(Long id);
     List<Product> findByTitle(String title);
     List<Product> findByTitleContains(String string);
