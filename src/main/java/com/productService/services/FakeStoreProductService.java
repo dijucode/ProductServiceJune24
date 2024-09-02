@@ -4,7 +4,9 @@ import com.productService.dtos.FakeStoreProductDto;
 import com.productService.exceptions.ProductNotFoundException;
 import com.productService.models.Category;
 import com.productService.models.Product;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -19,9 +21,11 @@ public class FakeStoreProductService implements ProductService {
 
 
     private final RestTemplate restTemplate;
+    private final RedisTemplate redisTemplate;
 
-    public FakeStoreProductService(RestTemplate restTemplate) {
+    public FakeStoreProductService(RestTemplate restTemplate, @Qualifier("redisTemplate") RedisTemplate redisTemplate) {
         this.restTemplate = restTemplate;
+        this.redisTemplate = redisTemplate;
     }
 
     private Product convertFakeStoreDtoToProduct(FakeStoreProductDto dto) {
@@ -42,18 +46,35 @@ public class FakeStoreProductService implements ProductService {
 
     @Override
     public Product getProductById(Long id) throws Exception {
-        // Simulating an exception to demonstrate exception handling
+        // Try to get the product from the Redis cache
+        Product product = (Product) redisTemplate.opsForHash().get("PRODUCTS", "PRODUCTS_" + id);
+
+        if (product != null) {
+            // If found in cache, return it
+            return product;
+        }
+
+        // Check for invalid product ID
         if (id < 0) {
             throw new Exception("Invalid product ID");
         }
 
+        // Fetch the product from the external API
         FakeStoreProductDto fakeStoreProductDto = restTemplate.getForObject("https://fakestoreapi.com/products/" + id, FakeStoreProductDto.class);
-        if (fakeStoreProductDto != null) {
-            return convertFakeStoreDtoToProduct(fakeStoreProductDto);
-        } else {
-            throw new ProductNotFoundException(id, "Product with id "+ id +" not found");
+
+        if (fakeStoreProductDto == null) {
+            throw new ProductNotFoundException(id, "Product with id " + id + " not found");
         }
+
+        // Convert the DTO to the Product entity
+        product = convertFakeStoreDtoToProduct(fakeStoreProductDto);
+
+        // Store the product in the Redis cache
+        redisTemplate.opsForHash().put("PRODUCTS", "PRODUCTS_" + id, product);
+
+        return product;
     }
+
 
 
     @Override

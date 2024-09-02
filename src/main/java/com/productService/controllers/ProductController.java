@@ -19,15 +19,14 @@ public class ProductController {
     private  ProductService productService;
     private ProductRepository productRepository;
 
-    ProductController(@Qualifier("selfProductService") ProductService productService, ProductRepository productRepository, AuthCommons authCommons) {
+    ProductController(@Qualifier("fakeStoreProductService") ProductService productService, ProductRepository productRepository, AuthCommons authCommons) {
 
         this.productService = productService;
         this.productRepository = productRepository;
         this.authCommons = authCommons;
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable("id") Long id,
-                                                  @RequestHeader("auth") String token) throws Exception {
+    public ResponseEntity<Product> getProductById(@PathVariable("id") Long id) throws Exception {
 
 
 

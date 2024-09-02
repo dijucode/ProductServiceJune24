@@ -16,7 +16,8 @@ public class  SecurityConfig {
                         // Allow token-free access to "/products"
                         .requestMatchers("/products").permitAll()
                         // Require "SCOPE_MENTOR" authority for "/products/{id}"
-                        .requestMatchers("/products/{id}").hasAuthority("SCOPE_MENTOR")
+                        .requestMatchers("/products/{id}").permitAll()
+
                         // All other requests must be authenticated
                         .anyRequest().authenticated()
                 )
@@ -25,3 +26,4 @@ public class  SecurityConfig {
         return http.build();
     }
 }
+
