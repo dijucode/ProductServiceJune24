@@ -1,6 +1,7 @@
 package com.productService.controllers;
 
 import com.productService.commons.AuthCommons;
+import com.productService.dtos.UserDto;
 import com.productService.models.Product;
 import com.productService.repositories.ProductRepository;
 import com.productService.services.ProductService;
@@ -9,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -18,18 +20,21 @@ public class ProductController {
     private final AuthCommons authCommons;
     private  ProductService productService;
     private ProductRepository productRepository;
+    private RestTemplate restTemplate;
 
-    ProductController(@Qualifier("fakeStoreProductService") ProductService productService, ProductRepository productRepository, AuthCommons authCommons) {
+    ProductController(@Qualifier("fakeStoreProductService") ProductService productService, ProductRepository productRepository, AuthCommons authCommons, RestTemplate restTemplate) {
 
         this.productService = productService;
         this.productRepository = productRepository;
         this.authCommons = authCommons;
+        this.restTemplate = restTemplate;
     }
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable("id") Long id) throws Exception {
 
 
-
+//make a call to UserService
+        UserDto userDto = restTemplate.getForObject("http://userservice/users/3", UserDto.class);
 
 //        call User Service to validate token
 //
