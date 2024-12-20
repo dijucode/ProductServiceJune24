@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.objectville.ecom</groupId>
-	<artifactId>productService</artifactId>
+	<artifactId>ProductService</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ProductService</name>
 	<description>project for Spring Boot</description>
@@ -119,6 +119,20 @@
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 			<version>4.1.3</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-actuator -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+			<version>3.3.3</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/io.micrometer/micrometer-registry-prometheus -->
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-registry-prometheus</artifactId>
+			<version>1.13.3</version>
+		</dependency>
+
+
 
 
 

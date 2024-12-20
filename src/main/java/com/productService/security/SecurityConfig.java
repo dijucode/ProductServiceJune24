@@ -17,6 +17,8 @@ public class  SecurityConfig {
                         .requestMatchers("/products").permitAll()
                         // Require "SCOPE_MENTOR" authority for "/products/{id}"
                         .requestMatchers("/products/{id}").permitAll()
+                        .requestMatchers("/actuator/health").permitAll()
+                        .requestMatchers("/actuator/prometheus").permitAll()
 
                         // All other requests must be authenticated
                         .anyRequest().authenticated()

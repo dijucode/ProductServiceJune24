@@ -34,7 +34,7 @@ public class ProductController {
 
 
 //make a call to UserService
-        UserDto userDto = restTemplate.getForObject("http://userservice/users/3", UserDto.class);
+//        UserDto userDto = restTemplate.getForObject("http://userservice/users/3", UserDto.class);
 
 //        call User Service to validate token
 //
